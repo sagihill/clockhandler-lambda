@@ -10,7 +10,7 @@ type APIResponse = { optionChain: { result: [{ quote: { bid: number } }] } };
  *
  * Will succeed with the response body.
  */
-exports.handler = async (event, context, callback) => {
+exports.handler = (event, context, callback) => {
   const options = {
     method: "get",
     hostname: "yfapi.net",
@@ -24,7 +24,7 @@ exports.handler = async (event, context, callback) => {
     let body = "";
     let response: APIResponse = null;
     res.on("data", (chunk) => (body += chunk));
-    res.on("end", async () => {
+    res.on("end", () => {
       console.log("Successfully processed HTTPS response");
       // If we know it's JSON, parse it
       if (res.headers["content-type"] === "application/json") {
@@ -32,11 +32,13 @@ exports.handler = async (event, context, callback) => {
         response = body as unknown as APIResponse;
       }
       const price = response.optionChain.result[0].quote.bid;
-      console.log(price)
-      await insertPrice(event.symbol, price);
+      console.log(price);
+      insertPrice(event.symbol, price).then((res) => {
+        console.log(res);
+        callback(null, true);
+      });
     });
   });
-  callback(null, true);
   req.on("error", callback);
   req.end();
 };
