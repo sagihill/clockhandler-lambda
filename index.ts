@@ -48,7 +48,7 @@ exports.handler = (event, context, callback) => {
 
 // import { knex as Knex } from "knex";
 
-const knex = require("knex");
+const knex = require("knex")({ client: require("knex/lib/dialects/sqlite3") });
 const connection = {
   ssl: { rejectUnauthorized: false },
   host: "tradewatch-db.cluster-ckjhl9zn95xm.eu-central-1.rds.amazonaws.com",
