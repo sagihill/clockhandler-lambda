@@ -32,7 +32,7 @@ exports.handler = (event, context, callback) => {
         }
         const price = response.optionChain.result[0].quote.bid;
         console.log(price);
-        insertPrice(event.symbol, price);
+        // insertPrice(event.symbol, price);
         // insertPrice(event.symbol, price).then((res) => {
         //   console.log(res);
         // });
