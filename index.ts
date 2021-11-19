@@ -32,7 +32,7 @@ exports.handler = (event, context, callback) => {
       const price =  response.optionChain.result[0].quote.bid;
     });
   });
-  callback(null, "price");
+  callback(null, true);
   req.on("error", callback);
   req.end();
 };
