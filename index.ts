@@ -56,7 +56,8 @@ const connection = {
   database: "tradewatch-db",
 };
 const knex = require("knex")({
-  client: require("knex/lib/dialects/sqlite3")
+  client: require("knex/lib/dialects/mysql"),
+  connection
 });
 
 async function insertPrice(symbol: string, price: number): Promise<void> {
