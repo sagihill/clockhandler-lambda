@@ -58,7 +58,7 @@ exports.handler = (event, context, callback) => {
 
 // const knex = Knex({ client: "mysql", connection });
 
-export function insertPrice(symbol: string, price: number): void {
-  //   const res = await knex("Prices").insert({ symbol, price });
-  console.log(symbol);
-}
+// function insertPrice(symbol: string, price: number): void {
+//   //   const res = await knex("Prices").insert({ symbol, price });
+//   console.log(symbol);
+// }
