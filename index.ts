@@ -46,7 +46,9 @@ exports.handler = (event, context, callback) => {
   }
 };
 
-import { knex as Knex } from "knex";
+// import { knex as Knex } from "knex";
+
+const knex = require("knex")
 
 // const connection = {
 //   ssl: { rejectUnauthorized: false },
