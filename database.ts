@@ -15,6 +15,6 @@ export async function insertPrice(
   symbol: string,
   price: number
 ): Promise<void> {
-  const res = await knex("Prices").insert({ symbol, price });
-  console.log(res);
+//   const res = await knex("Prices").insert({ symbol, price });
+  console.log("hi");
 }
