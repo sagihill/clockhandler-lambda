@@ -10,10 +10,10 @@
 
 // const knex = Knex({ client: "mysql", connection });
 
-export async function insertPrice(
+export function insertPrice(
   symbol: string,
   price: number
-): Promise<void> {
+): void {
 //   const res = await knex("Prices").insert({ symbol, price });
   console.log(symbol);
 }
