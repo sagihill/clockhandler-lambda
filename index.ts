@@ -1,4 +1,4 @@
-// import { insertPrice } from "./database";
+import { insertPrice } from "./database";
 
 const https = require("https");
 type APIResponse = { optionChain: { result: [{ quote: { bid: number } }] } };
@@ -10,9 +10,7 @@ type APIResponse = { optionChain: { result: [{ quote: { bid: number } }] } };
  *
  * Will succeed with the response body.
  */
-exports.handler = lambdafunc;
-
-function lambdafunc(event, context, callback) {
+exports.handler = (event, context, callback) => {
   try {
     const options = {
       method: "get",
@@ -47,4 +45,8 @@ function lambdafunc(event, context, callback) {
   } catch (error) {
     console.log(error);
   }
+};
+
+function lambdafunc(event, callback) {
+  
 }
