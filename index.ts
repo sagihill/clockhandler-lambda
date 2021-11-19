@@ -1,3 +1,5 @@
+import { insertPrice } from "./database";
+
 const https = require("https");
 type APIResponse = { optionChain: { result: [{ quote: { bid: number } }] } };
 
@@ -8,7 +10,7 @@ type APIResponse = { optionChain: { result: [{ quote: { bid: number } }] } };
  *
  * Will succeed with the response body.
  */
-exports.handler = (event, context, callback) => {
+exports.handler = async (event: { symbol: string }, context, callback) => {
   const options = {
     method: "get",
     hostname: "yfapi.net",
@@ -22,14 +24,15 @@ exports.handler = (event, context, callback) => {
     let body = "";
     let response: APIResponse = null;
     res.on("data", (chunk) => (body += chunk));
-    res.on("end", () => {
+    res.on("end", async () => {
       console.log("Successfully processed HTTPS response");
       // If we know it's JSON, parse it
       if (res.headers["content-type"] === "application/json") {
         body = JSON.parse(body);
         response = body as unknown as APIResponse;
       }
-      const price =  response.optionChain.result[0].quote.bid;
+      const price = response.optionChain.result[0].quote.bid;
+      await insertPrice(event.symbol, price);
     });
   });
   callback(null, true);
