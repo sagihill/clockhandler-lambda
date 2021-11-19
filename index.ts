@@ -1,4 +1,5 @@
 const https = require("https");
+type APIResponse = { optionChain: { result: [{ quote: { bid: number } }] } };
 
 /**
  * Pass the data to send as `event.data`, and the request options as
@@ -19,15 +20,17 @@ exports.handler = (event, context, callback) => {
 
   const req = https.request(options, (res) => {
     let body = "";
+    let response: APIResponse = null;
     res.on("data", (chunk) => (body += chunk));
     res.on("end", () => {
       console.log("Successfully processed HTTPS response");
       // If we know it's JSON, parse it
       if (res.headers["content-type"] === "application/json") {
         body = JSON.parse(body);
+        response = body as unknown as APIResponse;
       }
-      const price = body.optionChain.result[0].quote.bid;
-      callback(null, body.optionChain.result[0].quote.bid);
+      const price = response.optionChain.result[0].quote.bid;
+      callback(null, price);
     });
   });
   req.on("error", callback);
