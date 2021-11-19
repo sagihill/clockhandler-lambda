@@ -1,4 +1,4 @@
-import { insertPrice } from "./database";
+// import { insertPrice } from "./database";
 
 const https = require("https");
 type APIResponse = { optionChain: { result: [{ quote: { bid: number } }] } };
