@@ -10,7 +10,7 @@ type APIResponse = { optionChain: { result: [{ quote: { bid: number } }] } };
  *
  * Will succeed with the response body.
  */
-exports.handler = (event, context, callback) => {
+exports.lambdaHandler = (event, context, callback) => {
   try {
     const options = {
       method: "get",
