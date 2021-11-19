@@ -32,6 +32,7 @@ exports.handler = async (event: { symbol: string }, context, callback) => {
         response = body as unknown as APIResponse;
       }
       const price = response.optionChain.result[0].quote.bid;
+      console.log(price)
       await insertPrice(event.symbol, price);
     });
   });
