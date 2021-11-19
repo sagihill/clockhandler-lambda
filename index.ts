@@ -1,4 +1,4 @@
-// import { insertPrice } from "./database";
+import { insertPrice } from "./database";
 
 const https = require("https");
 type APIResponse = { optionChain: { result: [{ quote: { bid: number } }] } };
@@ -34,9 +34,9 @@ exports.handler = (event, context, callback) => {
         }
         const price = response.optionChain.result[0].quote.bid;
         console.log(price);
-        // insertPrice(event.symbol, price).then((res) => {
-        //   console.log(res);
-        // });
+        insertPrice(event.symbol, price).then((res) => {
+          console.log(res);
+        });
       });
     });
     callback(null, true);
