@@ -10,7 +10,7 @@ type APIResponse = { optionChain: { result: [{ quote: { bid: number } }] } };
  *
  * Will succeed with the response body.
  */
-exports.handler = async (event: { symbol: string }, context, callback) => {
+exports.handler = async (event, context, callback) => {
   const options = {
     method: "get",
     hostname: "yfapi.net",
