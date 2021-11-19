@@ -29,7 +29,7 @@ exports.handler = (event, context, callback) => {
         body = JSON.parse(body);
         response = body as unknown as APIResponse;
       }
-      const price = response.optionChain.result[0].quote.bid;
+      const price =  response.optionChain.result[0].quote.bid;
       callback(null, price);
     });
   });
