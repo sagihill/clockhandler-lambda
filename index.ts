@@ -48,7 +48,6 @@ exports.handler = (event, context, callback) => {
 
 // import { knex as Knex } from "knex";
 
-const knex = require("knex")({ client: require("knex/lib/dialects/sqlite3") });
 const connection = {
   ssl: { rejectUnauthorized: false },
   host: "tradewatch-db.cluster-ckjhl9zn95xm.eu-central-1.rds.amazonaws.com",
@@ -56,8 +55,10 @@ const connection = {
   password: "sagi1991",
   database: "tradewatch-db",
 };
-
-const knexjs = knex({ client: "mysql", connection });
+const knex = require("knex")({
+  client: require("knex/lib/dialects/sqlite3"),
+  connection,
+});
 
 async function insertPrice(symbol: string, price: number): Promise<void> {
   const res = await knex("Prices").insert({ symbol, price });
