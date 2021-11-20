@@ -43,7 +43,7 @@ const knex = require("knex")({
   connection,
 });
 
-async function insertPrice(symbol: string, price: number): Promise<void> {
+async function insertPrice(symbol: string, price: number): Promise<number> {
   const res = await knex("Prices").insert({ symbol, price });
-  return res;
+  return res[0];
 }
