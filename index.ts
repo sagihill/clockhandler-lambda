@@ -22,7 +22,7 @@ exports.handler = async (event) => {
 
     const options = {
       // method: "get",
-      url: "https://yfapi.net/v7/finance/options/" + event.symbol,
+      url: `https://yfapi.net/v7/finance/options/${event.symbol}`,
       headers: {
         "x-api-key": "L5KARBpGqm6aQPrXPfwgl6E5Ild5pRBh8dG7cb6a",
       },
