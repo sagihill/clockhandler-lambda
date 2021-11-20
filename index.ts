@@ -1,6 +1,8 @@
 const https = require("https");
 const axios = require("axios").default;
-type APIResponse = { optionChain: { result: [{ quote: { bid: number } }] } };
+type APIResponse = {
+  optionChain: { result: [{ quote: { regularMarketPrice: number } }] };
+};
 
 /**
  * Pass the data to send as `event.data`, and the request options as
@@ -11,15 +13,6 @@ type APIResponse = { optionChain: { result: [{ quote: { bid: number } }] } };
  */
 exports.handler = async (event) => {
   try {
-    // const options = {
-    //   method: "get",
-    //   hostname: "yfapi.net",
-    //   path: "https://yfapi.net/v7/finance/options/" + event.symbol,
-    //   headers: {
-    //     "x-api-key": "L5KARBpGqm6aQPrXPfwgl6E5Ild5pRBh8dG7cb6a",
-    //   },
-    // };
-
     const options = {
       // method: "get",
       headers: {
@@ -32,29 +25,11 @@ exports.handler = async (event) => {
       options
     );
 
-    const price = resp.data.optionChain.result[0].quote.regularMarketPrice;
-    const res = await insertPrice(event.symbol, price);
-    console.log(JSON.stringify(res));
+    const data: APIResponse = resp.data;
+
+    const price = data.optionChain.result[0].quote.regularMarketPrice;
+    await insertPrice(event.symbol, price);
     return true;
-    // console.log(price);
-    // const req = https.request(options, (res) => {
-    //   let body = "";
-    //   let response: APIResponse = null;
-    //   res.on("data", (chunk) => (body += chunk));
-    //   res.on("end", async () => {
-    //     console.log("Successfully processed HTTPS response");
-    //     // If we know it's JSON, parse it
-    //     if (res.headers["content-type"] === "application/json") {
-    //       body = JSON.parse(body);
-    //       response = body as unknown as APIResponse;
-    //     }
-    //     const price = response.optionChain.result[0].quote.bid;
-    //     await insertPrice(event.symbol, price);
-    //     callback(null, true);
-    //   });
-    // });
-    // req.on("error", callback);
-    // req.end();
   } catch (error) {
     console.log(error);
   }
