@@ -35,9 +35,8 @@ exports.handler = async (event) => {
     );
 
     const price = resp.data.optionChain.result[0].quote.regularMarketPrice;
-    console.log(resp.data.optionChain.result[0].quote)
     const res = await insertPrice(event.symbol, price);
-    console.log(res);
+    console.log(JSON.stringify(res));
     return true;
     // console.log(price);
     // const req = https.request(options, (res) => {
