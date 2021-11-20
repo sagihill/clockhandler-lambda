@@ -22,15 +22,17 @@ exports.handler = async (event) => {
 
     const options = {
       // method: "get",
-      url: `https://yfapi.net/v7/finance/options/${event.symbol}`,
       headers: {
         "x-api-key": "L5KARBpGqm6aQPrXPfwgl6E5Ild5pRBh8dG7cb6a",
       },
     };
 
-    console.log(options)
+    console.log(options);
 
-    const resp = await axios.get(options);
+    const resp = await axios.get(
+      `https://yfapi.net/v7/finance/options/${event.symbol}`,
+      options
+    );
     console.log(resp.response);
     // const req = https.request(options, (res) => {
     //   let body = "";
