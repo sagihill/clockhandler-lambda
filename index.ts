@@ -31,10 +31,8 @@ exports.handler = (event, context, callback) => {
           response = body as unknown as APIResponse;
         }
         const price = response.optionChain.result[0].quote.bid;
-        console.log(price);
-        insertPrice(event.symbol, price).then((res) => {
-          callback(null, true);
-        });
+        insertPrice(event.symbol, price)
+        callback(null, true);
       });
     });
     req.on("error", callback);
@@ -59,7 +57,6 @@ const knex = require("knex")({
   connection,
 });
 
-async function insertPrice(symbol: string, price: number): Promise<void> {
-  const res = await knex("Prices").insert({ symbol, price });
-  return res;
+function insertPrice(symbol: string, price: number): void {
+  knex("Prices").insert({ symbol, price });
 }
