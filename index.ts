@@ -50,7 +50,7 @@ exports.handler = (event, context, callback) => {
 
 const connection = {
   ssl: { rejectUnauthorized: false },
-  host: "tradewatch-db.cluster-ckjhl9zn95xm.eu-central-1.rds.amazonaws.com",
+  host: "tradewatch-1.ckjhl9zn95xm.eu-central-1.rds.amazonaws.com",
   port: "3306",
   user: "admin",
   password: "sagi1991",
