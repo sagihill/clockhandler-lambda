@@ -19,15 +19,18 @@ type ClockHandlerEvent = {
 
 exports.handler = async (event: ClockHandlerEvent) => {
   try {
+    console.log("Started handling clock event: ", event);
     const price = await getPrice(event.detail.symbol);
     const priceId = await insertPrice(event.detail.symbol, price);
+    console.log("Finished handling clock event...");
     return priceId;
   } catch (error) {
-    console.log(error);
+    console.log("Something went wrong handling event",[error, event]);
   }
 };
 
 async function getPrice(symbol: string): Promise<number> {
+  console.log(`Started fetching price for "${symbol}"`);
   const options = {
     headers: {
       "x-api-key": "L5KARBpGqm6aQPrXPfwgl6E5Ild5pRBh8dG7cb6a",
@@ -43,10 +46,13 @@ async function getPrice(symbol: string): Promise<number> {
 
   const price = data.optionChain.result[0].quote.regularMarketPrice;
 
+  console.log(`Price is: ${price}`);
+
   return price;
 }
 
 async function insertPrice(symbol: string, price: number): Promise<number> {
+  console.log("Inserting price to database...");
   const connection = {
     ssl: { rejectUnauthorized: false },
     host: "tradewatch-1.ckjhl9zn95xm.eu-central-1.rds.amazonaws.com",
@@ -61,5 +67,6 @@ async function insertPrice(symbol: string, price: number): Promise<number> {
   });
 
   const res = await knex("Prices").insert({ symbol, price });
+  console.log("Finished inserting price into the database...");
   return res[0];
 }
