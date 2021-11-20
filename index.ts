@@ -35,8 +35,10 @@ exports.handler = async (event) => {
     );
 
     const price = resp.data.optionChain.result[0].quote.bid;
-
-    console.log(price);
+    const res = await insertPrice(event.symbol, price);
+    console.log(res);
+    return true;
+    // console.log(price);
     // const req = https.request(options, (res) => {
     //   let body = "";
     //   let response: APIResponse = null;
@@ -76,5 +78,6 @@ const knex = require("knex")({
 });
 
 async function insertPrice(symbol: string, price: number): Promise<void> {
-  await knex("Prices").insert({ symbol, price });
+  const res = await knex("Prices").insert({ symbol, price });
+  return res;
 }
