@@ -1,19 +1,20 @@
-// import { knex as Knex } from "knex";
+const connect = {
+  ssl: { rejectUnauthorized: false },
+  host: "tradewatch-1.ckjhl9zn95xm.eu-central-1.rds.amazonaws.com",
+  port: "3306",
+  user: "admin",
+  password: "sagi1991",
+  database: "TradeWatch",
+};
+const knexjs = require("knex")({
+  client: require("knex/lib/dialects/mysql"),
+  connect,
+});
 
-// const connection = {
-//   ssl: { rejectUnauthorized: false },
-//   host: "tradewatch-db.cluster-ckjhl9zn95xm.eu-central-1.rds.amazonaws.com",
-//   user: "admin",
-//   password: "sagi1991",
-//   database: "tradewatch-db",
-// };
-
-// const knex = Knex({ client: "mysql", connection });
-
-export function insertPrice(
+export async function insertPrices(
   symbol: string,
   price: number
-): void {
-//   const res = await knex("Prices").insert({ symbol, price });
-  console.log(symbol);
+): Promise<number> {
+  const res = await knexjs("Prices").insert({ symbol, price });
+  return res[0];
 }
