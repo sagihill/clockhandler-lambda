@@ -27,8 +27,6 @@ exports.handler = async (event) => {
       },
     };
 
-    console.log(options);
-
     const resp = await axios.get(
       `https://yfapi.net/v7/finance/options/${event.symbol}`,
       options
