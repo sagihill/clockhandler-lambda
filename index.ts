@@ -34,7 +34,7 @@ exports.handler = async (event) => {
       options
     );
 
-    const price = resp.data.optionChain.result[0].quote.bid;
+    const price = resp.data.optionChain.result[0].quote.regularMarketPrice;
     console.log(resp.data.optionChain.result[0].quote)
     const res = await insertPrice(event.symbol, price);
     console.log(res);
