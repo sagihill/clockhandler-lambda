@@ -1,4 +1,5 @@
 const https = require("https");
+const axios = require("axios").default
 type APIResponse = { optionChain: { result: [{ quote: { bid: number } }] } };
 
 /**
