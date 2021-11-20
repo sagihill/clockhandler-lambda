@@ -53,7 +53,7 @@ const connection = {
   host: "tradewatch-db.cluster-ckjhl9zn95xm.eu-central-1.rds.amazonaws.com",
   port: "3306",
   user: "admin",
-  password: "S1A2gi34",
+  password: "sagi1991",
   database: "tradewatch-db",
 };
 const knex = require("knex")({
