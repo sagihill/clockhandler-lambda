@@ -4,13 +4,23 @@ type APIResponse = {
 };
 
 type ClockHandlerEvent = {
-  symbol: string;
+  version: string;
+  id: string;
+  "detail-type": string;
+  source: string;
+  account: string;
+  time: string;
+  region: string;
+  resources: [];
+  detail: {
+    symbol: string;
+  };
 };
 
 exports.handler = async (event: ClockHandlerEvent) => {
   try {
-    const price = await getPrice(event.symbol);
-    const priceId = await insertPrice(event.symbol, price);
+    const price = await getPrice(event.detail.symbol);
+    const priceId = await insertPrice(event.detail.symbol, price);
     return priceId;
   } catch (error) {
     console.log(error);
