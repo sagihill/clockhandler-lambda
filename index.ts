@@ -28,6 +28,8 @@ exports.handler = async (event) => {
       },
     };
 
+    console.log(options)
+
     const resp = await axios.get(options);
     console.log(resp.response);
     // const req = https.request(options, (res) => {
