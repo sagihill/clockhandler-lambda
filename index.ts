@@ -54,7 +54,7 @@ const connection = {
   port: "3306",
   user: "admin",
   password: "sagi1991",
-  database: "tradewatch-1",
+  database: "TradeWatch",
 };
 const knex = require("knex")({
   client: require("knex/lib/dialects/mysql"),
