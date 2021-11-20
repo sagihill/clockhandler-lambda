@@ -11,10 +11,14 @@ const knexjs = require("knex")({
   connect,
 });
 
-export async function insertPrices(
+async function insertPrices(
   symbol: string,
   price: number
 ): Promise<number> {
   const res = await knexjs("Prices").insert({ symbol, price });
   return res[0];
 }
+
+module.exports = {
+  insertPrices,
+};
