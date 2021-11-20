@@ -4,13 +4,6 @@ type APIResponse = {
   optionChain: { result: [{ quote: { regularMarketPrice: number } }] };
 };
 
-/**
- * Pass the data to send as `event.data`, and the request options as
- * `event.options`. For more information see the HTTPS module documentation
- * at https://nodejs.org/api/https.html.
- *
- * Will succeed with the response body.
- */
 exports.handler = async (event) => {
   try {
     const options = {
@@ -28,8 +21,8 @@ exports.handler = async (event) => {
     const data: APIResponse = resp.data;
 
     const price = data.optionChain.result[0].quote.regularMarketPrice;
-    await insertPrice(event.symbol, price);
-    return true;
+    const priceId = await insertPrice(event.symbol, price);
+    return priceId;
   } catch (error) {
     console.log(error);
   }
