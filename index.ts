@@ -1,3 +1,5 @@
+import { insertPrices } from "./database";
+
 const https = require("https");
 const axios = require("axios").default;
 type APIResponse = {
@@ -7,7 +9,8 @@ type APIResponse = {
 exports.handler = async (event: { symbol: string }) => {
   try {
     const price = await getPrice(event.symbol);
-    const priceId = await insertPrice(event.symbol, price);
+    // const priceId = await insertPrice(event.symbol, price);
+    const priceId = await insertPrices(event.symbol, price);
     return priceId;
   } catch (error) {
     console.log(error);
