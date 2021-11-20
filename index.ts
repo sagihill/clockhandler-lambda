@@ -32,13 +32,10 @@ exports.handler = (event, context, callback) => {
         }
         const price = response.optionChain.result[0].quote.bid;
         console.log(price);
-        insertPrice(event.symbol, price);
-        // insertPrice(event.symbol, price).then((res) => {
-        //   console.log(res);
-        // });
+        const result = insertPrice(event.symbol, price);
+        callback(null, true);
       });
     });
-    callback(null, true);
     req.on("error", callback);
     req.end();
   } catch (error) {
@@ -58,10 +55,10 @@ const connection = {
 };
 const knex = require("knex")({
   client: require("knex/lib/dialects/mysql"),
-  connection
+  connection,
 });
 
 async function insertPrice(symbol: string, price: number): Promise<void> {
   const res = await knex("Prices").insert({ symbol, price });
-  console.log(symbol);
+  return res;
 }
