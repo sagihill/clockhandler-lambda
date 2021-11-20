@@ -52,7 +52,7 @@ const connection = {
   ssl: { rejectUnauthorized: false },
   host: "tradewatch-db.cluster-ckjhl9zn95xm.eu-central-1.rds.amazonaws.com",
   port: "3306",
-  user: "RDSUser",
+  user: "admin",
   password: "S1A2gi34",
   database: "tradewatch-db",
 };
