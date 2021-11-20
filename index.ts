@@ -1,5 +1,5 @@
 const https = require("https");
-const axios = require("axios").default
+const axios = require("axios").default;
 type APIResponse = { optionChain: { result: [{ quote: { bid: number } }] } };
 
 /**
@@ -11,17 +11,25 @@ type APIResponse = { optionChain: { result: [{ quote: { bid: number } }] } };
  */
 exports.handler = async (event) => {
   try {
+    // const options = {
+    //   method: "get",
+    //   hostname: "yfapi.net",
+    //   path: "https://yfapi.net/v7/finance/options/" + event.symbol,
+    //   headers: {
+    //     "x-api-key": "L5KARBpGqm6aQPrXPfwgl6E5Ild5pRBh8dG7cb6a",
+    //   },
+    // };
+
     const options = {
       method: "get",
-      hostname: "yfapi.net",
-      path: "https://yfapi.net/v7/finance/options/" + event.symbol,
+      url: "yfapi.net/v7/finance/options/" + event.symbol,
       headers: {
         "x-api-key": "L5KARBpGqm6aQPrXPfwgl6E5Ild5pRBh8dG7cb6a",
       },
     };
 
-    const resp = await axios.request(options)
-    console.log(resp)
+    const resp = await axios.request(options);
+    console.log(resp);
     // const req = https.request(options, (res) => {
     //   let body = "";
     //   let response: APIResponse = null;
