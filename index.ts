@@ -33,7 +33,7 @@ exports.handler = async (event) => {
       `https://yfapi.net/v7/finance/options/${event.symbol}`,
       options
     );
-    console.log(resp);
+    console.log(resp.data);
     // const req = https.request(options, (res) => {
     //   let body = "";
     //   let response: APIResponse = null;
