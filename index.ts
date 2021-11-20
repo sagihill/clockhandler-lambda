@@ -4,23 +4,9 @@ type APIResponse = {
   optionChain: { result: [{ quote: { regularMarketPrice: number } }] };
 };
 
-exports.handler = async (event) => {
+exports.handler = async (event: { symbol: string }) => {
   try {
-    const options = {
-      // method: "get",
-      headers: {
-        "x-api-key": "L5KARBpGqm6aQPrXPfwgl6E5Ild5pRBh8dG7cb6a",
-      },
-    };
-
-    const resp = await axios.get(
-      `https://yfapi.net/v7/finance/options/${event.symbol}`,
-      options
-    );
-
-    const data: APIResponse = resp.data;
-
-    const price = data.optionChain.result[0].quote.regularMarketPrice;
+    const price = await getPrice(event.symbol);
     const priceId = await insertPrice(event.symbol, price);
     return priceId;
   } catch (error) {
@@ -28,7 +14,24 @@ exports.handler = async (event) => {
   }
 };
 
-// import { knex as Knex } from "knex";
+async function getPrice(symbol: string): Promise<number> {
+  const options = {
+    headers: {
+      "x-api-key": "L5KARBpGqm6aQPrXPfwgl6E5Ild5pRBh8dG7cb6a",
+    },
+  };
+
+  const resp = await axios.get(
+    `https://yfapi.net/v7/finance/options/${symbol}`,
+    options
+  );
+
+  const data: APIResponse = resp.data;
+
+  const price = data.optionChain.result[0].quote.regularMarketPrice;
+
+  return price;
+}
 
 const connection = {
   ssl: { rejectUnauthorized: false },
