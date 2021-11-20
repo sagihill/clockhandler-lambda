@@ -23,7 +23,7 @@ exports.handler = (event, context, callback) => {
       let body = "";
       let response: APIResponse = null;
       res.on("data", (chunk) => (body += chunk));
-      res.on("end", () => {
+      res.on("end", async () => {
         console.log("Successfully processed HTTPS response");
         // If we know it's JSON, parse it
         if (res.headers["content-type"] === "application/json") {
@@ -31,7 +31,7 @@ exports.handler = (event, context, callback) => {
           response = body as unknown as APIResponse;
         }
         const price = response.optionChain.result[0].quote.bid;
-        insertPrice(event.symbol, price)
+        await insertPrice(event.symbol, price);
         callback(null, true);
       });
     });
@@ -57,6 +57,6 @@ const knex = require("knex")({
   connection,
 });
 
-function insertPrice(symbol: string, price: number): void {
-  knex("Prices").insert({ symbol, price });
+async function insertPrice(symbol: string, price: number): Promise<void> {
+  await knex("Prices").insert({ symbol, price });
 }
