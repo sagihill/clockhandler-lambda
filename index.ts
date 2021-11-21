@@ -15,7 +15,10 @@ exports.handler = async (event: ClockHandlerEvent) => {
     console.log("Finished handling clock handler event...");
     return priceId;
   } catch (error) {
-    console.log("Something went wrong handling event", [{ error }, { event }]);
+    console.log("Something went wrong handling event", [
+      { error: JSON.stringify(error) },
+      { event },
+    ]);
   }
 };
 
