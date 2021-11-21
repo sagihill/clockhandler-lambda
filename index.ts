@@ -36,7 +36,7 @@ async function getPrice(symbol: string): Promise<number> {
 
   const price = data.optionChain.result[0].quote.regularMarketPrice;
 
-  console.log(`Price is: ${price}`);
+  console.log(`${symbol} price is: ${price}`);
 
   return price;
 }
