@@ -4,28 +4,18 @@ type APIResponse = {
 };
 
 type ClockHandlerEvent = {
-  version: string;
-  id: string;
-  "detail-type": string;
-  source: string;
-  account: string;
-  time: string;
-  region: string;
-  resources: [];
-  detail: {
-    symbol: string;
-  };
+  symbol: string;
 };
 
 exports.handler = async (event: ClockHandlerEvent) => {
   try {
     console.log("Started handling clock event: ", event);
-    const price = await getPrice(event.detail.symbol);
-    const priceId = await insertPrice(event.detail.symbol, price);
+    const price = await getPrice(event.symbol);
+    const priceId = await insertPrice(event.symbol, price);
     console.log("Finished handling clock event...");
     return priceId;
   } catch (error) {
-    console.log("Something went wrong handling event",[error, event]);
+    console.log("Something went wrong handling event", [error, event]);
   }
 };
 
