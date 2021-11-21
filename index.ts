@@ -15,7 +15,7 @@ exports.handler = async (event: ClockHandlerEvent) => {
     console.log("Finished handling clock handler event...");
     return priceId;
   } catch (error) {
-    console.log("Something went wrong handling event", [error, event]);
+    console.log("Something went wrong handling event", [{ error }, { event }]);
   }
 };
 
@@ -44,7 +44,8 @@ async function getPrice(symbol: string): Promise<number> {
 async function insertPrice(symbol: string, price: number): Promise<number> {
   console.log("Inserting price to database...");
 
-  const host = "tradewatch-2-instance-1.ckjhl9zn95xm.eu-central-1.rds.amazonaws.com"; //Aurora
+  const host =
+    "tradewatch-2-instance-1.ckjhl9zn95xm.eu-central-1.rds.amazonaws.com"; //Aurora
   // const host = "tradewatch-1.ckjhl9zn95xm.eu-central-1.rds.amazonaws.com"; // MySQL
 
   const connection = {
