@@ -22,12 +22,13 @@ exports.handler = async (event: ClockHandlerEvent) => {
 async function getPrice(symbol: string): Promise<number> {
   console.log(`Started fetching price for "${symbol}"`);
   const options = {
+    method: "get",
     headers: {
       "x-api-key": "L5KARBpGqm6aQPrXPfwgl6E5Ild5pRBh8dG7cb6a",
     },
   };
 
-  const resp = await axios.get(
+  const resp = await axios.request(
     `https://yfapi.net/v7/finance/options/${symbol}`,
     options
   );
