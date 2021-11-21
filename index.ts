@@ -44,8 +44,7 @@ async function getPrice(symbol: string): Promise<number> {
 async function insertPrice(symbol: string, price: number): Promise<number> {
   console.log("Inserting price to database...");
 
-  const host =
-    "tradewatch-2.cluster-ckjhl9zn95xm.eu-central-1.rds.amazonaws.com"; //Aurrora
+  const host = "tradewatch-2-instance-1.ckjhl9zn95xm.eu-central-1.rds.amazonaws.com"; //Aurora
   // const host = "tradewatch-1.ckjhl9zn95xm.eu-central-1.rds.amazonaws.com"; // MySQL
 
   const connection = {
