@@ -12,7 +12,7 @@ exports.handler = async (event: ClockHandlerEvent) => {
     console.log("Started handling clock event: ", event);
     const price = await getPrice(event.symbol);
     const priceId = await insertPrice(event.symbol, price);
-    console.log("Finished handling clock event...");
+    console.log("Finished handling clock handler event...");
     return priceId;
   } catch (error) {
     console.log("Something went wrong handling event", [error, event]);
